@@ -20,7 +20,11 @@ public class BloodbowlHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
+       Fraction f = new Fraction(1,2);
+       Fraction[] probs = {f,f,f};
+       TreeHandler th = new TreeHandler();
+       th.generateTreeFailEndR(probs, th.tree, 0);
+       System.out.println(Arrays.toString(th.tree.toStringArray(new ArrayList<>())));
     }
     
 }

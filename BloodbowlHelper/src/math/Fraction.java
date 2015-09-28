@@ -13,8 +13,8 @@ import java.util.Arrays;
  * @author Reetoo
  */
 public class Fraction {
-    int num;
-    int den;
+    public int num;
+    public int den;
     
     public Fraction(int n, int d){
         num = n;
