@@ -5,6 +5,9 @@
  */
 package math;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author Reetoo
@@ -19,22 +22,48 @@ public class Fraction {
     }
     
     public void simplify(){
+        int n = Util.getHCF(num, den);
+        if(n==-1)
+            return;
+        divide(n);
+    }
+    private void divide(int n){
+        num = num/n;
+        den = den/n;
+    }
+    @Override
+    public String toString(){
+        return num +"/"+ den;
+    }
+    public Fraction add(Fraction f){
+        int[] nums = Util.getLCM(den, f.den);
+       // System.out.println(Arrays.toString(nums));
+        Fraction newF = new Fraction(num*nums[0]+f.num*nums[1],nums[2]);
+        newF.simplify();
+        return newF;
+    }
+    public Fraction sub(Fraction f){
+        int[] nums = Util.getLCM(den, f.den);
+       // System.out.println(Arrays.toString(nums));
+        Fraction newF = new Fraction(num*nums[0]-f.num*nums[1],nums[2]);
+        newF.simplify();
+        return newF;
         
     }
-    public void add(Fraction f){
-        
+    public Fraction mult(Fraction f){
+        Fraction newF = new Fraction(num*f.num,den*f.den);
+        newF.simplify();
+        return newF;
     }
-    public void sub(Fraction f){
-        
+    public Fraction reverse(){
+        Fraction one = new Fraction(den,den);
+        return one.sub(this);
     }
-    public void mult(Fraction f){
-        
+    public Fraction invert(){
+        return new Fraction(den,num);
     }
-    public void invert(Fraction f){
-        
-    }
-    public void divide(Fraction d){
-        
+    public Fraction divide(Fraction f){
+        return mult(f.invert());
     }
     public double getDouble(){
         return num/den;

@@ -5,6 +5,9 @@
  */
 package bloodbowlhelper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import math.Fraction;
 import math.Util;
 
 /**
@@ -17,12 +20,7 @@ public class BloodbowlHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(Util.getMultiple(5,25));
-        System.out.println(Util.getMultiple(36,6));
-        System.out.println(Util.getFactors(4));
-        System.out.println(Util.getFactors(10));
-        System.out.println(Util.getFactors(21));
-        System.out.println(Util.getFactors(23));
+       
     }
     
 }
