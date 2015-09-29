@@ -5,6 +5,7 @@
  */
 package bloodbowlhelper;
 
+import java.util.List;
 import math.Fraction;
 
 /**
@@ -36,28 +37,47 @@ public class TreeHandler {
         if(i>=probs.length){
             return;
         }
-       
+        
+         
         Tree[] subTrees = new Tree[2];
         Tree tree1 = new Tree(probs[i],true, false, p.hasReroll);
-        Tree tree2 = new Tree(probs[i],false,false,p.hasReroll);
-         boolean flag = false;
+        Tree tree2 = new Tree(probs[i].reverse(),false,false,p.hasReroll);
+        // boolean flag = false;
         if(p.rerolled){
             Fraction rerollChance = new Fraction(1,1);
             tree1 = new Tree(rerollChance,true,false,p.hasReroll);
             if(rerollChance.reverse().num==0){
                 tree2 = null;
             }
+            generateTreeFailEndR(probs,tree1,i);
+           
         }
-         else
-            i++;
-         
-        generateTreeFailEndR(probs,tree1,i);
-        if(p.hasReroll){
-            tree2 = new Tree(probs[i-1],false,true,false);
-            generateTreeFailEndR(probs,tree2,i);
+        else{
+            generateTreeFailEndR(probs,tree1,i+1);
+            if(p.hasReroll){
+                tree2 = new Tree(probs[i].reverse(),false,true,false);
+                generateTreeFailEndR(probs,tree2,i);
+            }
         }
         subTrees[0] = tree1;
         subTrees[1] = tree2;
         p.subChains = subTrees;
     }
+     public static String chainToString(List<Tree> list){
+         String s = "";
+         for(Tree t: list){
+             if(!t.start){
+             if(t.success){
+                 s = s+">S";
+             }
+             else{
+                 s = s+">F";
+             }
+             if(t.rerolled)
+                 s = s+">R";
+             }
+         
+         }
+         return s;
+     }
 }

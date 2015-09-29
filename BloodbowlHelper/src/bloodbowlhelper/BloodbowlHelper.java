@@ -7,6 +7,7 @@ package bloodbowlhelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import math.Fraction;
 import math.Util;
 
@@ -20,11 +21,33 @@ public class BloodbowlHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Fraction f = new Fraction(1,2);
-       Fraction[] probs = {f,f,f};
+       
+       Fraction f = new Fraction(5,6);
+       Fraction f2 = new Fraction(2,3);
+       Fraction[] probs = {f,f,f2};
        TreeHandler th = new TreeHandler();
        th.generateTreeFailEndR(probs, th.tree, 0);
-       System.out.println(Arrays.toString(th.tree.toStringArray(new ArrayList<>())));
+       ArrayList<List<Tree>> chains = th.tree.getAllSChains(new ArrayList<>());
+       Fraction succeed = new Fraction(0,0);
+       for(List<Tree> chain: chains){
+           //if(chain!=null)
+            System.out.print(th.chainToString(chain));
+            Fraction fN = ChainHandler.getProbOfChain(chain);
+            succeed = succeed.add(fN);
+            System.out.println(" : "+fN);
+       }
+       System.out.println("Total Succeed : "+succeed);
+       
+       chains = th.tree.getAllFChains(new ArrayList<>());
+       Fraction fail = new Fraction(0,0);
+       for(List<Tree> chain: chains){
+           //if(chain!=null)
+            System.out.print(th.chainToString(chain));
+            Fraction fN = ChainHandler.getProbOfChain(chain);
+            fail = fail.add(fN);
+            System.out.println(" : "+fN);
+       }
+       System.out.println("Total Fail : "+fail);
     }
     
 }

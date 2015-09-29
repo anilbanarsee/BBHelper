@@ -5,7 +5,9 @@
  */
 package math;
 
+import bloodbowlhelper.Tree;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -91,6 +93,17 @@ public class Util {
        }
        return newList;
    }
+   public static List<Tree> clone(List<Tree> list){
+       List<Tree> newList = new ArrayList<>();
+       for(Tree t: list){
+           Tree tn = new Tree(t.localChance, t.success, t.rerolled, t.hasReroll);
+           if(t.start)
+               tn.start = true;
+           newList.add(tn);
+               
+       }
+       return newList;
+   }
    public static ArrayList<String>[] merge(ArrayList<String>[] s1, ArrayList<String>[] s2){
        ArrayList<String>[] newS = new ArrayList[s1.length+s2.length];
        int i=0;
@@ -102,5 +115,21 @@ public class Util {
            i++;
        }
        return newS;
+   }
+    public static ArrayList<List<Tree>> merge(ArrayList<List<Tree>> s1, ArrayList<List<Tree>> s2){
+        if(s1==null)
+            return s2;
+        if(s2==null)
+            return s1;
+            
+        ArrayList<List<Tree>> chains = new ArrayList<>();
+       int i=0;
+       for(;i<s1.size();i++){
+           chains.add(s1.get(i));
+       }
+       for(int j = 0; j<s2.size(); j++){
+           chains.add(s2.get(j));
+       }
+       return chains;
    }
 }
