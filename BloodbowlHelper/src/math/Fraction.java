@@ -40,9 +40,11 @@ public class Fraction {
             return this;
         if(num==0)
             return f;
-        int[] nums = Util.getLCM(den, f.den);
+       // int[] nums = Util.getLCM(den, f.den);
        // System.out.println(Arrays.toString(nums));
-        Fraction newF = new Fraction(num*nums[0]+f.num*nums[1],nums[2]);
+       // Fraction newF = new Fraction(num*nums[0]+f.num*nums[1],nums[2]);
+        
+        Fraction newF = new Fraction((num*f.den)+(f.num*den),f.den*den);
         newF.simplify();
         return newF;
     }

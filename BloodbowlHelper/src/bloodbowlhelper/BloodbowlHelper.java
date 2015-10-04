@@ -21,17 +21,41 @@ public class BloodbowlHelper {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
+        
+      /*  Fraction f = new Fraction(101,400);
+        Fraction f2 = new Fraction(198,800);
+        System.out.println(f.add(f2));*/
+     
        Fraction f = new Fraction(5,6);
        Fraction f2 = new Fraction(2,3);
        Fraction[] probs = {f,f,f2};
+       ArrayList<Fraction> prs = new ArrayList<>();
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+       
+        
+        
+        ArrayList<PlayerState> pStates = new ArrayList<>();
+        pStates.add(null);
+        Player p = new Player("Jeff", true, true, true, true);
+        pStates.add(new PlayerState(p));
+        
+        
+        ProbabilityList ps = new ProbabilityList(prs,pStates);
        TreeHandler th = new TreeHandler();
-       th.generateTreeFailEndR(probs, th.tree, 0);
+       th.generateTreeFailEndR(ps, th.tree, 0);
        ArrayList<List<Tree>> chains = th.tree.getAllSChains(new ArrayList<>());
        Fraction succeed = new Fraction(0,0);
        for(List<Tree> chain: chains){
            //if(chain!=null)
-            System.out.print(th.chainToString(chain));
+            System.out.print(TreeHandler.chainToString(chain));
             Fraction fN = ChainHandler.getProbOfChain(chain);
             succeed = succeed.add(fN);
             System.out.println(" : "+fN);
@@ -48,6 +72,24 @@ public class BloodbowlHelper {
             System.out.println(" : "+fN);
        }
        System.out.println("Total Fail : "+fail);
+             
+       /* Player p = new Player("Jeff", true, true, true, true);
+        Player p2 = new Player("Simon", false, true, false, true);
+        Fraction f = new Fraction(5,6);
+        
+        ArrayList<Fraction> probs = new ArrayList<>();
+        probs.add(f);
+        probs.add(f);
+        probs.add(f);
+        
+        
+        ArrayList<PlayerState> pStates = new ArrayList<>();
+        pStates.add(null);
+        pStates.add(new PlayerState(p));
+        
+        ProbabilityList ps = new ProbabilityList(probs,pStates);
+        
+        System.out.println(ps.getStateAtIndex(1).name);*/
     }
     
 }

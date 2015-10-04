@@ -16,6 +16,7 @@ import math.Util;
  */
 public class Tree {
     Tree[] subChains;
+    PlayerState pstate;
     public boolean success;
     public boolean start;
     public Fraction localChance;
@@ -28,6 +29,9 @@ public class Tree {
         start = false;
         rerolled = r;
         hasReroll = hasR;
+    }
+    public void setPState(PlayerState ps){
+        pstate = ps;
     }
     public ArrayList<List<Tree>> getAllChains(List<Tree> chain){
         chain.add(this);

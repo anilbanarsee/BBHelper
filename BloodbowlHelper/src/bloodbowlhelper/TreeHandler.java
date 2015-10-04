@@ -33,6 +33,37 @@ public class TreeHandler {
         subTrees[1] = tree2;
         p.subChains = subTrees;
     }*/
+    public void generateTreeFailEndR(ProbabilityList pList, Tree p, int i){
+        if(i>=pList.size()){
+            return;
+        }
+        
+         
+        Tree[] subTrees = new Tree[2];
+        Tree tree1 = new Tree(pList.getProbability(i),true, false, p.hasReroll);
+        Tree tree2 = new Tree(pList.getProbability(i).reverse(),false,false,p.hasReroll);
+        // boolean flag = false;
+        
+        if(p.rerolled){
+            Fraction rerollChance = new Fraction(1,1);
+            tree1 = new Tree(rerollChance,true,false,p.hasReroll);
+            if(rerollChance.reverse().num==0){
+                tree2 = null;
+            }
+            generateTreeFailEndR(pList,tree1,i);
+           
+        }
+        else{
+            generateTreeFailEndR(pList,tree1,i+1);
+            if(p.hasReroll){
+                tree2 = new Tree(pList.getProbability(i).reverse(),false,true,false);
+                generateTreeFailEndR(pList,tree2,i);
+            }
+        }
+        subTrees[0] = tree1;
+        subTrees[1] = tree2;
+        p.subChains = subTrees;
+    }
      public void generateTreeFailEndR(Fraction[] probs, Tree p, int i){
         if(i>=probs.length){
             return;
