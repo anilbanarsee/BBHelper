@@ -26,6 +26,9 @@ public class BloodbowlHelper {
         Fraction f2 = new Fraction(198,800);
         System.out.println(f.add(f2));*/
      
+       // System.out.println(Util.getHCF3(48,18));
+       // System.out.println(Math.floorMod(48, 18));
+        
        Fraction f = new Fraction(5,6);
        Fraction f2 = new Fraction(2,3);
        Fraction[] probs = {f,f,f2};
@@ -39,6 +42,26 @@ public class BloodbowlHelper {
         prs.add(f);
         prs.add(f);
         prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+       /* prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);*/
+       // prs.add(f);
+       // prs.add(f);
+       // prs.add(f);
+        //prs.add(f);
+     
+
+               // prs.add(f);
+        
+        
+        
        
         
         
@@ -60,7 +83,8 @@ public class BloodbowlHelper {
             succeed = succeed.add(fN);
             System.out.println(" : "+fN);
        }
-       System.out.println("Total Succeed : "+succeed);
+       succeed.simplify();
+       System.out.println("Total Succeed : "+succeed+" ("+succeed.getDouble()+"%).");
        
        chains = th.tree.getAllFChains(new ArrayList<>());
        Fraction fail = new Fraction(0,0);
@@ -71,7 +95,8 @@ public class BloodbowlHelper {
             fail = fail.add(fN);
             System.out.println(" : "+fN);
        }
-       System.out.println("Total Fail : "+fail);
+       fail.simplify();
+       System.out.println("Total Fail : "+fail+" ("+fail.getDouble()+"%).");
              
        /* Player p = new Player("Jeff", true, true, true, true);
         Player p2 = new Player("Simon", false, true, false, true);

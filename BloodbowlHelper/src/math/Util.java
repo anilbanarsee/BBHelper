@@ -9,6 +9,7 @@ import bloodbowlhelper.Tree;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.math.*;
 
 /**
  *
@@ -47,6 +48,87 @@ public class Util {
        factors.add(x);
        return factors;
    }
+   public static int[] div(int x, int y){
+       int i = 0;
+       while(x>=y){
+           i++;
+           x -= y;
+       }
+       int[] qr = {i,x};
+       return qr;
+   }
+    public static long[] div(long x, long y) {
+       
+       long i = 0;
+       //Math.floorDiv(x, y)
+       /* while(x-y*500 >= y){
+            
+            i+=500;
+            x -= y*500;
+            //x -= x*50;
+        }
+        
+        while(x-y*250 >= y){
+             //System.out.println("B");
+            i+=250;
+            x -= y*250;
+            //x -= x*50;
+        }
+         while(x-y*100 >= y){
+             //System.out.println("B");
+            i+=100;
+            x -= y*100;
+            //x -= x*50;
+        }
+         while(x-y*50 >= y){
+            // System.out.println("C");
+            i+=50;
+            x -= y*50;
+            //x -= x*50;
+        }
+           while(x-y*5 >= y){
+            // System.out.println("C");
+            i+=5;
+            x -= y*5;
+            //x -= x*50;
+        }*/
+        while (x >= y) {
+            i++;
+            x -= y;
+        }
+        long[] qr = {i, x};
+        return qr;
+        //long[] qr = {Math.floorDiv(x, y),Math.floorMod(x, y)};
+       // return qr;
+    }
+    public static int getHCF3(int x, int y){
+       //System.out.println(x+","+y);
+       int z = x;
+       int[] qr = div(z,y);
+       int v = y;
+       z = v;
+       
+       while(qr[1]!=0){
+           v = qr[1];
+           qr = div(z,qr[1]);
+           z = v;
+       }
+       return v;
+   }
+    public static long getHCF3(long x, long y){
+       //System.out.println(x+","+y);
+       long z = x;
+       long[] qr = div(z,y);
+       long v = y;
+       z = v;
+       
+       while(qr[1]!=0){
+           v = qr[1];
+           qr = div(z,qr[1]);
+           z = v;
+       }
+       return v;
+   }
    public static int getHCF(int x, int y){
        ArrayList<Integer> xFactors = getFactors(x);
        //System.out.println(xFactors);
@@ -62,6 +144,58 @@ public class Util {
            }
        }
        return -1;
+   }
+      public static long[] getLCM(long x, long y) throws RuntimeException{
+       long iX = 1;
+       long iY = 1;
+       long oX = x;
+       long oY = y;
+       long[] nums = new long[3];
+       while(true){
+            if(x<y){
+                if(x*1000<y){
+                    x = x+1000*oX;
+                    iX+=1000;
+                }
+                else if(x*100<y){
+                    x = x+100*oX;
+                    iX+=100;
+                }/*
+                if(x*10<y){
+                    x = x+10*oX;
+                    iX+=10;
+                }
+                */
+                else{
+                    x = x+oX;
+                    iX++;
+                }
+            }
+            else if(y<x){
+                if(y*1000<x){
+                    y = y+1000*oY;
+                    iY += 1000;
+                }
+                else if(y*100<x){
+                    y = y+100*oY;
+                    iY += 100;
+                }/*
+                else if(y*10<x){
+                    y = y+10*oY;
+                    iY += 10;
+                }*/
+                else{
+                    y = y+oY;
+                    iY++;
+                }
+            }
+            else{
+                nums[0] = iX;
+                nums[1] = iY;
+                nums[2] = y;
+                return nums;
+            }
+       }
    }
    public static int[] getLCM(int x, int y) throws RuntimeException{
        int iX = 1;
