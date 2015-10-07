@@ -29,36 +29,18 @@ public class BloodbowlHelper {
        // System.out.println(Util.getHCF3(48,18));
        // System.out.println(Math.floorMod(48, 18));
         
+      // System.out.println(Arrays.toString(Util.getLCM2(12, 6)));
+       
        Fraction f = new Fraction(5,6);
        Fraction f2 = new Fraction(2,3);
        Fraction[] probs = {f,f,f2};
        ArrayList<Fraction> prs = new ArrayList<>();
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-       /* prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);*/
-       // prs.add(f);
-       // prs.add(f);
-       // prs.add(f);
-        //prs.add(f);
-     
+        prs.add(f2);
+        prs.add(f2);
 
-               // prs.add(f);
+
+       //prs.add(f);
+        
         
         
         

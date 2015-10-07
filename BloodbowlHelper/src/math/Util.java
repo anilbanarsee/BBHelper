@@ -61,7 +61,7 @@ public class Util {
        
        long i = 0;
        //Math.floorDiv(x, y)
-       /* while(x-y*500 >= y){
+        while(x-y*500 >= y){
             
             i+=500;
             x -= y*500;
@@ -91,7 +91,7 @@ public class Util {
             i+=5;
             x -= y*5;
             //x -= x*50;
-        }*/
+        }
         while (x >= y) {
             i++;
             x -= y;
@@ -129,7 +129,7 @@ public class Util {
        }
        return v;
    }
-   public static int getHCF(int x, int y){
+   public static int getHCF2(int x, int y){
        ArrayList<Integer> xFactors = getFactors(x);
        //System.out.println(xFactors);
        ArrayList<Integer> yFactors = getFactors(y);
@@ -144,6 +144,17 @@ public class Util {
            }
        }
        return -1;
+   }
+   public static long[] getLCM2(long x, long y){
+       long[] nums = new long[3];
+       long n = Util.getHCF3(x, y);
+       long n1 = (x/n)*y;
+       long n2 = n1/x;
+       long n3 = n1/y;
+       nums[0] = n2;
+       nums[1] = n3;
+       nums[2] = n1;
+       return nums;
    }
       public static long[] getLCM(long x, long y) throws RuntimeException{
        long iX = 1;
