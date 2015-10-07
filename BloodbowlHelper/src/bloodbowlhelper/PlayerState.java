@@ -37,6 +37,52 @@ public class PlayerState {
         hasBlock = b;
         hasThrow = t;
     }
+    public String toString(){
+        String s =name + " has";
+        boolean flag = false;
+        boolean flag2 = false;
+        if(hasDodge){
+            flag2 = true;
+            flag = true;
+            s = s+" Dodge";
+        }
+        if(hasCatch){
+            if(flag2){
+                if(!hasThrow && !hasBlock)
+                    s = s+" and";
+                else
+                 s = s+",";
+            }
+            flag2 = true;
+            flag = true;
+            s = s+" Catch";
+        }
+        if(hasThrow){
+            if(flag2){
+                if(!hasBlock)
+                    s = s+" and";
+                else
+                    s = s+",";
+            }
+            flag2 = true;
+            flag = true;
+            s = s+" Throw";
+        }
+        if(hasBlock){
+            if(flag2){
+                s = s+" and";
+            }
+            flag = true;
+            s = s+" Block";
+        }
+        if(!flag){
+            s = s+" nothing";
+        }
+        s = s+" available.";
+        return s;
+        
+        
+    }
     public PlayerState clone(){
         return new PlayerState(name,hasDodge,hasCatch,hasBlock,hasThrow);
     }

@@ -5,9 +5,11 @@
  */
 package bloodbowlhelper;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import math.BigFraction;
 import math.Fraction;
 import math.Util;
 
@@ -30,13 +32,105 @@ public class BloodbowlHelper {
        // System.out.println(Math.floorMod(48, 18));
         
       // System.out.println(Arrays.toString(Util.getLCM2(12, 6)));
+       // 
+     //  Fraction f = new Fraction(5,36);
+     //  Fraction f2 = new Fraction(2,3);
+      /// Fraction[] probs = {f,f,f2};
+        
+       BigFraction f = new BigFraction(5,6);
+       ArrayList<BigFraction> prs = new ArrayList<>();
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        
+
+
+       //prs.add(f);
+        
+        
+        
+        
        
+        
+        
+        ArrayList<PlayerState> pStates = new ArrayList<>();
+        pStates.add(null);
+        Player p = new Player("Jeff", false, true, true, false);
+        pStates.add(new PlayerState(p));
+        
+       
+        
+        
+        BigProbabilityList ps = new BigProbabilityList(prs,pStates);
+        System.out.println(ps.getState(100));
+        System.exit(0);
+       BigTreeHandler th = new BigTreeHandler();
+       th.generateTreeFailEndR(ps, th.tree, 0);
+       ArrayList<List<BigTree>> chains = th.tree.getAllSChains(new ArrayList<>());
+       BigFraction succeed = new BigFraction(0,0);
+       for(List<BigTree> chain: chains){
+           //if(chain!=null)
+            System.out.print(BigTreeHandler.chainToString(chain));
+            BigFraction fN = ChainHandler.getProbOfChain2(chain);
+            succeed = succeed.add(fN);
+            System.out.println(" : "+fN);
+       }
+       succeed.simplify();
+       System.out.println("Total Succeed : "+succeed+" ("+succeed.getDouble()+"%).");
+       
+       chains = th.tree.getAllFChains(new ArrayList<>());
+       BigFraction fail = new BigFraction(0,0);
+       for(List<BigTree> chain: chains){
+           //if(chain!=null)
+            System.out.print(th.chainToString(chain));
+            BigFraction fN = ChainHandler.getProbOfChain2(chain);
+            fail = fail.add(fN);
+            System.out.println(" : "+fN);
+       }
+       fail.simplify();
+       System.out.println("Total Fail : "+fail+" ("+fail.getDouble()+"%).");
+             
+       /*
        Fraction f = new Fraction(5,6);
        Fraction f2 = new Fraction(2,3);
        Fraction[] probs = {f,f,f2};
        ArrayList<Fraction> prs = new ArrayList<>();
-        prs.add(f2);
-        prs.add(f2);
+        
+       
+       
+       prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+        prs.add(f);
+       // prs.add(f);
+        
 
 
        //prs.add(f);

@@ -5,6 +5,7 @@
  */
 package math;
 
+import bloodbowlhelper.BigTree;
 import bloodbowlhelper.Tree;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class Util {
        factors.add(x);
        return factors;
    }
+   public static BigInteger[] div(BigInteger x, BigInteger y){
+      // System.out.println(x+" ,"+y);
+       return x.divideAndRemainder(y);
+   }
    public static int[] div(int x, int y){
        int i = 0;
        while(x>=y){
@@ -61,6 +66,27 @@ public class Util {
        
        long i = 0;
        //Math.floorDiv(x, y)
+       
+       
+       while(x-y*10000 >= y){
+            
+            i+=10000;
+            x -= y*10000;
+            //x -= x*50;
+        }
+       while(x-y*5000 >= y){
+            
+            i+=5000;
+            x -= y*5000;
+            //x -= x*50;
+        }
+       
+        while(x-y*1000 >= y){
+            
+            i+=1000;
+            x -= y*1000;
+            //x -= x*50;
+        }
         while(x-y*500 >= y){
             
             i+=500;
@@ -129,6 +155,23 @@ public class Util {
        }
        return v;
    }
+   public static BigInteger getHCF3(BigInteger x, BigInteger y){
+       //System.out.println(x+","+y);
+       BigInteger z = x;
+       BigInteger[] qr = div(z,y);
+       BigInteger v = y;
+       z = v;
+       
+       while(qr[1].compareTo(BigInteger.ZERO)!=0){
+           v = qr[1];
+           qr = div(z,qr[1]);
+           z = v;
+       }
+       return v;
+   }
+    public static BigInteger getHCF4(BigInteger x, BigInteger y){
+        return x.gcd(y);
+   }
    public static int getHCF2(int x, int y){
        ArrayList<Integer> xFactors = getFactors(x);
        //System.out.println(xFactors);
@@ -145,7 +188,18 @@ public class Util {
        }
        return -1;
    }
-   public static long[] getLCM2(long x, long y){
+   public static BigInteger[] getLCM(BigInteger x, BigInteger y){
+       BigInteger[] nums = new BigInteger[3];
+       BigInteger n = Util.getHCF3(x, y);
+       BigInteger n1 = (x.divide(n)).multiply(y);
+       BigInteger n2 = n1.divide(x);
+       BigInteger n3 = n1.divide(y);
+       nums[0] = n2;
+       nums[1] = n3;
+       nums[2] = n1;
+       return nums;
+   }
+   public static long[] getLCM(long x, long y){
        long[] nums = new long[3];
        long n = Util.getHCF3(x, y);
        long n1 = (x/n)*y;
@@ -156,7 +210,7 @@ public class Util {
        nums[2] = n1;
        return nums;
    }
-      public static long[] getLCM(long x, long y) throws RuntimeException{
+      public static long[] getLCM2(long x, long y) throws RuntimeException{
        long iX = 1;
        long iY = 1;
        long oX = x;
@@ -249,6 +303,17 @@ public class Util {
        }
        return newList;
    }
+   public static List<BigTree> clone2(List<BigTree> list){
+       List<BigTree> newList = new ArrayList<>();
+       for(BigTree t: list){
+           BigTree tn = new BigTree(t.localChance, t.success, t.rerolled, t.hasReroll);
+           if(t.start)
+               tn.start = true;
+           newList.add(tn);
+               
+       }
+       return newList;
+   }
    public static ArrayList<String>[] merge(ArrayList<String>[] s1, ArrayList<String>[] s2){
        ArrayList<String>[] newS = new ArrayList[s1.length+s2.length];
        int i=0;
@@ -268,6 +333,22 @@ public class Util {
             return s1;
             
         ArrayList<List<Tree>> chains = new ArrayList<>();
+       int i=0;
+       for(;i<s1.size();i++){
+           chains.add(s1.get(i));
+       }
+       for(int j = 0; j<s2.size(); j++){
+           chains.add(s2.get(j));
+       }
+       return chains;
+   }
+     public static ArrayList<List<BigTree>> merge2(ArrayList<List<BigTree>> s1, ArrayList<List<BigTree>> s2){
+        if(s1==null)
+            return s2;
+        if(s2==null)
+            return s1;
+            
+        ArrayList<List<BigTree>> chains = new ArrayList<>();
        int i=0;
        for(;i<s1.size();i++){
            chains.add(s1.get(i));
