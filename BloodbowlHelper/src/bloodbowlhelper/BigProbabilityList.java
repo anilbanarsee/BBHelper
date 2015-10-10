@@ -39,7 +39,12 @@ public class BigProbabilityList {
             
         }
         return ps;*/
+        try{
         return pStates.get(i);
+        }
+        catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
     public BigFraction getProbability(int i){
         return probs.get(i);

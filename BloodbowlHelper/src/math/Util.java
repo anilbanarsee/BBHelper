@@ -306,7 +306,7 @@ public class Util {
    public static List<BigTree> clone2(List<BigTree> list){
        List<BigTree> newList = new ArrayList<>();
        for(BigTree t: list){
-           BigTree tn = new BigTree(t.localChance, t.success, t.rerolled, t.hasReroll);
+           BigTree tn = new BigTree(t.localChance, t.success, t.rerolled, t.hasReroll,t.dodged);
            if(t.start)
                tn.start = true;
            newList.add(tn);

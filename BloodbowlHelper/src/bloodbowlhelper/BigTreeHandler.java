@@ -20,7 +20,9 @@ public class BigTreeHandler {
         BigFraction f = new BigFraction(1,1);
         tree = new BigTree(f,true,false,true,false);
         tree.start = true;
+        
     }
+    
   /*  public void generateTreeCompleteR(BigFraction[] probs, BigTree p, int i){
         if(i>=probs.length){
             return;
@@ -35,6 +37,76 @@ public class BigTreeHandler {
         subTrees[1] = tree2;
         p.subChains = subTrees;
     }*/
+    public void generateTreeFailEndR2(BigProbabilityList pList, BigTree p, int i){
+        if(i>=pList.size()){
+            return;
+        }
+        PlayerState ps = pList.getState(i);
+        //BigTree(BigFraction probability, boolean success, boolean rerolled, boolean hasReroll, boolean dodged)
+        BigTree[] subTrees = new BigTree[2];
+        BigTree success, fail;
+
+        if(p.dodged){
+            success = new BigTree(new BigFraction(1,1),true,false,p.hasReroll,false);
+            generateTreeFailEndR2(pList,success,i);
+        }
+        if(p.rerolled){
+            BigFraction rerollChance = new BigFraction(1,1);
+            success = new BigTree(rerollChance,true,false,false,false);
+            generateTreeFailEndR2(pList,success,i);
+        }
+        else{
+            success = new BigTree(pList.getProbability(i),true,false,p.hasReroll,false);
+            generateTreeFailEndR2(pList,success,i+1);
+        }
+        
+        if(p.pstate.hasDodge){
+             
+            fail = new BigTree(pList.getProbability(i).reverse(),false,false,p.hasReroll,true);
+            generateTreeFailEndR2(pList,fail,i);
+            
+        }
+        else if(p.hasReroll){
+            
+            fail = new BigTree(pList.getProbability(i).reverse(),false,true,false,false);
+            generateTreeFailEndR2(pList,fail,i);
+            
+        }
+        else if(p.dodged){
+            fail = null;
+        }
+       // BigTree(BigFraction probability, boolean success, boolean rerolled, boolean hasReroll, boolean dodged)
+        else if(p.rerolled){
+            BigFraction rerollChance = new BigFraction(1,1);
+            fail = new BigTree(rerollChance.reverse(),false,false,false,false);
+            generateTreeFailEndR2(pList,fail,i);
+        }
+        else{
+            
+            fail = new BigTree(pList.getProbability(i).reverse(),false,false,false,false);
+            
+        }
+        
+        
+        subTrees[0] = success;
+        subTrees[1] = fail;
+        p.subChains = subTrees;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
     public void generateTreeFailEndR(BigProbabilityList pList, BigTree p, int i){
         if(i>=pList.size()){
             return;
@@ -45,6 +117,9 @@ public class BigTreeHandler {
         BigTree tree1 = new BigTree(pList.getProbability(i),true, false, p.hasReroll, false);
         BigTree tree2 = new BigTree(pList.getProbability(i).reverse(),false,false,p.hasReroll, false);
         PlayerState state = pList.getState(i);
+        if(state!=null){
+            System.out.println("Hello");
+        }
      
         // boolean flag = false;
         
@@ -54,8 +129,9 @@ public class BigTreeHandler {
             if(rerollChance.reverse().num.compareTo(BigInteger.ZERO)==0){
                 tree2 = null;
             }
+            
                if(state!=null)
-                tree1.setPState(state);     
+                tree1.setPState(state.clone());     
                else
                 tree1.setPState(p.pstate);
             
@@ -65,13 +141,25 @@ public class BigTreeHandler {
         }
         else{
             if(state!=null)
-                tree1.setPState(state);     
+                tree1.setPState(state.clone());     
                else
                 tree1.setPState(p.pstate);
             
             generateTreeFailEndR(pList,tree1,i+1);
             
-            if(p.hasReroll){
+            if(p.pstate!=null){
+                if(p.pstate.hasDodge){
+                    tree2 = new BigTree(pList.getProbability(i).reverse(),false,false,p.hasReroll,true);
+                    PlayerState ps = p.pstate.clone();
+                    ps.hasDodge = false;
+                    
+                    tree2.setPState(ps);
+                    
+                    generateTreeFailEndR(pList,tree2,i);
+                    
+                }
+            }
+            else if(p.hasReroll&&(!p.dodged)){
                 tree2 = new BigTree(pList.getProbability(i).reverse(),false,true,false,false);
                 
                 if(state!=null)
@@ -81,22 +169,7 @@ public class BigTreeHandler {
                 
                 generateTreeFailEndR(pList,tree2,i);
             }
-            if(p.pstate!=null){
-                if(p.pstate.hasDodge){
-                    
-                    tree2 = new BigTree(pList.getProbability(i).reverse(),false,true,false,true);
-                    PlayerState ps = p.pstate.clone();
-                    ps.hasDodge = false;
-                    
-                    if(state!=null)
-                        tree2.setPState(state);     
-                    else
-                        tree2.setPState(p.pstate);
-                    
-                    generateTreeFailEndR(pList,tree2,i);
-                    
-                }
-            }
+            
         }
         subTrees[0] = tree1;
         subTrees[1] = tree2;
@@ -145,7 +218,10 @@ public class BigTreeHandler {
              }
              if(t.rerolled)
                  s = s+">R";
+             if(t.dodged)
+                 s = s+"D";
              }
+             
          
          }
          return s;

@@ -24,13 +24,13 @@ public class BigTree {
     public boolean rerolled;
     public boolean dodged;
     public boolean hasReroll;
-    public BigTree(BigFraction f, boolean b, boolean r, boolean hasR, boolean d){
+    public BigTree(BigFraction probability, boolean success, boolean rerolled, boolean hasReroll, boolean dodged){
         
-        localChance = f;
-        success = b;
+        localChance = probability;
+        success = success;
         start = false;
-        rerolled = r;
-        hasReroll = hasR;
+        rerolled = rerolled;
+        hasReroll = hasReroll;
     }
     public BigTree(BigFraction f, boolean b, boolean r, boolean hasR, boolean d, PlayerState ps){
         

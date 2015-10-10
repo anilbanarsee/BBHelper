@@ -40,23 +40,9 @@ public class BloodbowlHelper {
        BigFraction f = new BigFraction(5,6);
        ArrayList<BigFraction> prs = new ArrayList<>();
         prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        prs.add(f);
-        
+        //prs.add(f);
+        //prs.add(f);
+
 
 
        //prs.add(f);
@@ -68,18 +54,18 @@ public class BloodbowlHelper {
         
         
         ArrayList<PlayerState> pStates = new ArrayList<>();
-        pStates.add(null);
-        Player p = new Player("Jeff", false, true, true, false);
+        
+        Player p = new Player("Jeff", true, true, true, true);
         pStates.add(new PlayerState(p));
         
        
         
         
         BigProbabilityList ps = new BigProbabilityList(prs,pStates);
-        System.out.println(ps.getState(100));
-        System.exit(0);
+       
+        
        BigTreeHandler th = new BigTreeHandler();
-       th.generateTreeFailEndR(ps, th.tree, 0);
+       th.generateTreeFailEndR2(ps, th.tree, 0);
        ArrayList<List<BigTree>> chains = th.tree.getAllSChains(new ArrayList<>());
        BigFraction succeed = new BigFraction(0,0);
        for(List<BigTree> chain: chains){
